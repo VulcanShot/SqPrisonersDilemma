@@ -54,3 +54,6 @@ dkms.conf
 # Folders created at compilation
 bin/
 lib/
+
+# VSCode
+.vscode/
