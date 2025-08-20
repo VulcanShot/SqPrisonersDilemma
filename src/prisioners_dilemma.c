@@ -15,7 +15,7 @@ int main(int argc, char** argv)
         .sucker      = 0,
         .random_seed = time(NULL)
     };
-    const char *scripts[] = { "samples/tit_for_tat.nut", "samples/friedman.nut" };
+    const char *scripts[] = { "strategies/tit_for_tat.nut", "strategies/friedman.nut" };
     StrategyInfo strategies[2] = {};
 
     if (!play_game(settings, scripts, strategies))
