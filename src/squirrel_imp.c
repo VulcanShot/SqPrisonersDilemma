@@ -2,6 +2,7 @@
 
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <squirrel.h>
 #include <sqstdio.h>
@@ -30,6 +31,7 @@
 bool play_game(GameSettings settings, const char *scripts[STRATEGY_COUNT], StrategyInfo strategies_out[STRATEGY_COUNT])
 {
     Strategy strategies[STRATEGY_COUNT];
+    srand(settings.random_seed);
 
     for (int i = 0; i < STRATEGY_COUNT; i++)
     {
@@ -50,7 +52,7 @@ bool play_game(GameSettings settings, const char *scripts[STRATEGY_COUNT], Strat
             game_history[turn_i][strat_i] = get_move(strategies[strat_i].vm, game_history, turn_i, strat_i);
             if (game_history[turn_i][strat_i] == NO_MOVE)
             {
-                fprintf(stderr, "StrategyInfo '%s' was not able to make move %d.\n", strategies[strat_i].info->name, turn_i);
+                fprintf(stderr, "Strategy '%s' was not able to make move %d.\n", strategies[strat_i].info->name, turn_i);
                 return false;
             }
         }
@@ -134,7 +136,7 @@ EMove get_move(HSQUIRRELVM v, Turn game_history[], int turn_count, int strat_ind
     sq_pushroottable(v);
     push_history(v, game_history, turn_count, strat_index);
     if ( SQ_FAILED(sq_call(v, 2, SQTrue, SQTrue)) ) {
-        fprintf(stderr, "Failed to call function");
+        fprintf(stderr, "Failed to call function\n");
         sq_settop(v, initial_size);
         return NO_MOVE;
     }

@@ -12,6 +12,7 @@ typedef struct {
     int reward;
     int penalty;
     int sucker;
+    long random_seed;
 } GameSettings;
 
 typedef struct {
