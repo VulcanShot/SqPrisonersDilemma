@@ -3,11 +3,6 @@
 
 function make_move(history)
 {
-	if (history.other.len() == 0)
-	{
-		return EMove.COOPERATION;
-	}
-
 	if (history.other.find(EMove.DEFECTION))
 	{
 		return EMove.DEFECTION;
